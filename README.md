@@ -775,6 +775,17 @@ npm test
 
 # Change Log
 
+##### Version 0.3.6
+
+Aided by GitHub Copilot and
+
+* Added additional tests and test coverage
+* Updated loadash to latest stable ^4.17.21
+* Updated seedrandom to latested stable ^3.0.5
+* Updated tests to run on jest ^29.7.0 (from old version of Mocha)
+* Removed expect and using in built Jest in tests
+
+
 ##### Version 0.3.3
 
 * Added `Trigram.hexagrams(position)` method.
