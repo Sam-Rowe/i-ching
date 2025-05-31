@@ -1,4 +1,3 @@
-const expect = require('expect');
 const iChing = require('../lib/i-ching.js');
 const data = require('../lib/data.json');
 const _ = require('lodash');
@@ -106,8 +105,8 @@ describe('iChing', () => {
       while (!r || r.change != null) {
         r = iChing.ask('get me an unchanged reading!');
       }
-      expect(r.hexagram).toExist();
-      expect(r.change).toNotExist();
+      expect(r.hexagram).toBeDefined();
+      expect(r.change).toBeNull();
     });
 
     it('should return a Reading with a hexagram and a change', () => {
@@ -116,8 +115,8 @@ describe('iChing', () => {
       while (!r || r.change == null) {
         r = iChing.ask('get me a reading that has changes!');
       }
-      expect(r.hexagram).toExist();
-      expect(r.change).toExist();
+      expect(r.hexagram).toBeDefined();
+      expect(r.change).toBeDefined();
       expect(r.change.from.number).toBe(r.hexagram.number);
       expect(parseInt(r.change.binary,2)).toBe(parseInt(r.hexagram.binary,2) ^ parseInt(r.change.to.binary,2));
     });
@@ -166,15 +165,15 @@ describe('Hexagram', () => {
     it('should set data from data.json', () => {
       let h = iChing.hexagram(1);
       expect(h.number).toBe(1);
-      expect(h.names).toInclude('Force');
-      expect(h.names).toInclude('The Creative');
+      expect(h.names).toContain('Force');
+      expect(h.names).toContain('The Creative');
       expect(h.chineseName).toBe('乾');
       expect(h.pinyinName).toBe('qián');
       expect(h.character).toBe('䷀');
       expect(h.binary).toBe('111111');
       expect(h.lines.length).toBe(6);
       expect(h.lines).toContain(1);
-      expect(h.lines).toNotContain(0);
+      expect(h.lines).not.toContain(0);
       expect(h.topTrigram.number).toBe(1);
       expect(h.bottomTrigram.number).toBe(1);
     });
@@ -189,12 +188,12 @@ describe('Hexagram', () => {
       expect(c.binary).toBe('111111');
       expect(c.changingLines.length).toBe(6);
       expect(c.changingLines).toContain(1);
-      expect(c.changingLines).toNotContain(0);
+      expect(c.changingLines).not.toContain(0);
     });
 
     it('should return null if hexagram number is the same', () => {
       let h = iChing.hexagram(5);
-      expect(h.changeTo(5)).toNotExist();
+      expect(h.changeTo(5)).toBeNull();
     })
   });
 
@@ -226,15 +225,15 @@ describe('Trigram', () => {
     it('should set data from data.json', () => {
       let t = iChing.trigram(2);
       expect(t.number).toBe(2);
-      expect(t.names).toInclude('Field');
-      expect(t.names).toInclude('The Receptive');
+      expect(t.names).toContain('Field');
+      expect(t.names).toContain('The Receptive');
       expect(t.chineseName).toBe('坤');
       expect(t.pinyinName).toBe('kūn');
       expect(t.character).toBe('☷');
       expect(t.binary).toBe('000');
       expect(t.lines.length).toBe(3);
       expect(t.lines).toContain(0);
-      expect(t.lines).toNotContain(1);
+      expect(t.lines).not.toContain(1);
       expect(t.attribute).toBe('devoted, yielding');
       expect(t.images.length).toBe(1);
       expect(t.images).toContain('earth');

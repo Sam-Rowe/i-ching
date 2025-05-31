@@ -1,4 +1,3 @@
-const expect = require('expect');
 const iChing = require('../lib/i-ching.js');
 const data = require('../lib/data.json');
 const _ = require('lodash');
@@ -44,7 +43,7 @@ describe('Extended Test Coverage', () => {
         
         expect(change.from).toBe(h);
         expect(change.to.number).toBe(15);
-        expect(change.from.number).toNotBe(change.to.number);
+        expect(change.from.number).not.toBe(change.to.number);
       });
 
       it('should calculate changing lines correctly for various combinations', () => {
@@ -76,9 +75,9 @@ describe('Extended Test Coverage', () => {
         
         // All readings should be valid
         readings.forEach(reading => {
-          expect(reading.hexagram).toExist();
-          expect(reading.hexagram.number).toBeGreaterThanOrEqualTo(1);
-          expect(reading.hexagram.number).toBeLessThanOrEqualTo(64);
+          expect(reading.hexagram).toBeDefined();
+          expect(reading.hexagram.number).toBeGreaterThanOrEqual(1);
+          expect(reading.hexagram.number).toBeLessThanOrEqual(64);
         });
       });
 
@@ -103,9 +102,9 @@ describe('Extended Test Coverage', () => {
       it('should always generate valid hexagram', () => {
         for (let i = 0; i < 20; i++) {
           const reading = iChing.ask(`test question ${i}`);
-          expect(reading.hexagram).toExist();
-          expect(reading.hexagram.number).toBeGreaterThanOrEqualTo(1);
-          expect(reading.hexagram.number).toBeLessThanOrEqualTo(64);
+          expect(reading.hexagram).toBeDefined();
+          expect(reading.hexagram.number).toBeGreaterThanOrEqual(1);
+          expect(reading.hexagram.number).toBeLessThanOrEqual(64);
           expect(reading.hexagram.lines.length).toBe(6);
           expect(reading.hexagram.lines.every(line => line === 0 || line === 1)).toBe(true);
         }
@@ -116,9 +115,9 @@ describe('Extended Test Coverage', () => {
           const reading = iChing.ask(`change test ${i}`);
           if (reading.change) {
             expect(reading.change.from.number).toBe(reading.hexagram.number);
-            expect(reading.change.to.number).toBeGreaterThanOrEqualTo(1);
-            expect(reading.change.to.number).toBeLessThanOrEqualTo(64);
-            expect(reading.change.to.number).toNotBe(reading.hexagram.number);
+            expect(reading.change.to.number).toBeGreaterThanOrEqual(1);
+            expect(reading.change.to.number).toBeLessThanOrEqual(64);
+            expect(reading.change.to.number).not.toBe(reading.hexagram.number);
             expect(reading.change.changingLines.length).toBe(6);
             expect(reading.change.changingLines.every(line => line === 0 || line === 1)).toBe(true);
             // Should have at least one changing line
@@ -172,7 +171,7 @@ describe('Extended Test Coverage', () => {
 
         // This one actually doesn't throw with string values
         const result = h.changeLines([1,0,"1",0,1,0]); // contains string - causes error
-        expect(result).toExist(); // Just verify it returns something
+        expect(result).toBeDefined(); // Just verify it returns something
       });
 
       it('should return null when no lines change', () => {
@@ -185,7 +184,7 @@ describe('Extended Test Coverage', () => {
         const h = iChing.hexagram(1); // 111111
         const change = h.changeLines([1,0,0,0,0,0]); // change only first line
         
-        expect(change).toExist();
+        expect(change).toBeDefined();
         // Due to line reversal in the implementation, this gives binary '000001'
         expect(change.binary).toBe('000001');
         // The result should be hexagram 44 with binary '111110'
@@ -213,14 +212,14 @@ describe('Extended Test Coverage', () => {
       it('should not include change to self', () => {
         const h = iChing.hexagram(32);
         const selfChange = h.changes.find(c => c.to.number === h.number);
-        expect(selfChange).toNotExist();
+        expect(selfChange).toBeUndefined();
       });
 
       it('should have valid binary strings for all changes', () => {
         const h = iChing.hexagram(1);
         h.changes.forEach(change => {
           expect(change.binary).toMatch(/^[01]{6}$/);
-          expect(change.binary).toNotBe('000000'); // should not be no change
+          expect(change.binary).not.toBe('000000'); // should not be no change
         });
       });
     });
@@ -237,12 +236,12 @@ describe('Extended Test Coverage', () => {
         expect(() => {
           const result = t.hexagrams('middle');
           // This should return hexagrams but doesn't throw
-        }).toNotThrow();
+        }).not.toThrow();
 
         expect(() => {
           const result = t.hexagrams('left');
           // This should return hexagrams but doesn't throw
-        }).toNotThrow();
+        }).not.toThrow();
       });
 
       it('should return correct hexagrams for each trigram in top position', () => {
@@ -321,17 +320,17 @@ describe('Extended Test Coverage', () => {
       
       data.hexagrams.forEach((hexData, index) => {
         expect(hexData.number).toBe(index + 1);
-        expect(hexData.names).toExist();
+        expect(hexData.names).toBeDefined();
         expect(hexData.names.length).toBeGreaterThan(0);
-        expect(hexData.character).toExist();
-        expect(hexData.binary).toExist();
+        expect(hexData.character).toBeDefined();
+        expect(hexData.binary).toBeDefined();
         expect(hexData.binary.length).toBe(6);
-        expect(hexData.lines).toExist();
+        expect(hexData.lines).toBeDefined();
         expect(hexData.lines.length).toBe(6);
-        expect(hexData.topTrigram).toBeGreaterThanOrEqualTo(1);
-        expect(hexData.topTrigram).toBeLessThanOrEqualTo(8);
-        expect(hexData.bottomTrigram).toBeGreaterThanOrEqualTo(1);
-        expect(hexData.bottomTrigram).toBeLessThanOrEqualTo(8);
+        expect(hexData.topTrigram).toBeGreaterThanOrEqual(1);
+        expect(hexData.topTrigram).toBeLessThanOrEqual(8);
+        expect(hexData.bottomTrigram).toBeGreaterThanOrEqual(1);
+        expect(hexData.bottomTrigram).toBeLessThanOrEqual(8);
       });
     });
 
@@ -340,15 +339,15 @@ describe('Extended Test Coverage', () => {
       
       data.trigrams.forEach((trigramData, index) => {
         expect(trigramData.number).toBe(index + 1);
-        expect(trigramData.names).toExist();
+        expect(trigramData.names).toBeDefined();
         expect(trigramData.names.length).toBeGreaterThan(0);
-        expect(trigramData.character).toExist();
-        expect(trigramData.binary).toExist();
+        expect(trigramData.character).toBeDefined();
+        expect(trigramData.binary).toBeDefined();
         expect(trigramData.binary.length).toBe(3);
-        expect(trigramData.lines).toExist();
+        expect(trigramData.lines).toBeDefined();
         expect(trigramData.lines.length).toBe(3);
-        expect(trigramData.attribute).toExist();
-        expect(trigramData.familyRelationship).toExist();
+        expect(trigramData.attribute).toBeDefined();
+        expect(trigramData.familyRelationship).toBeDefined();
       });
     });
 
@@ -460,8 +459,8 @@ describe('Extended Test Coverage', () => {
       expect(trigramNodes.length).toBe(8);
       trigramNodes.forEach(node => {
         expect(node.id).toMatch(/^t[1-8]$/);
-        expect(node.number).toBeGreaterThanOrEqualTo(1);
-        expect(node.number).toBeLessThanOrEqualTo(8);
+        expect(node.number).toBeGreaterThanOrEqual(1);
+        expect(node.number).toBeLessThanOrEqual(8);
       });
 
       // Check hexagram nodes
@@ -469,8 +468,8 @@ describe('Extended Test Coverage', () => {
       expect(hexagramNodes.length).toBe(64);
       hexagramNodes.forEach(node => {
         expect(node.id).toMatch(/^h\d+$/);
-        expect(node.number).toBeGreaterThanOrEqualTo(1);
-        expect(node.number).toBeLessThanOrEqualTo(64);
+        expect(node.number).toBeGreaterThanOrEqual(1);
+        expect(node.number).toBeLessThanOrEqual(64);
       });
     });
 
@@ -492,7 +491,7 @@ describe('Extended Test Coverage', () => {
 
       changeEdges.forEach(edge => {
         expect(edge.name).toMatch(/^[01]{6}$/);
-        expect(edge.name).toNotBe('000000'); // no self-changes
+        expect(edge.name).not.toBe('000000'); // no self-changes
       });
     });
   });
