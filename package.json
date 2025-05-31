@@ -21,7 +21,7 @@
     "seedrandom": "^2.4.3"
   },
   "devDependencies": {
-    "expect": "^1.20.2",
+    "expect": "^29.7.0",
     "mocha": "^3.4.2"
   }
 }
