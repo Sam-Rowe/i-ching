@@ -777,8 +777,7 @@ npm test
 
 ##### Version 0.3.6
 
-Aided by GitHub Copilot and
-
+Aided by GitHub Copilot
 * Added additional tests and test coverage
 * Updated loadash to latest stable ^4.17.21
 * Updated seedrandom to latested stable ^3.0.5
