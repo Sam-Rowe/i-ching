@@ -812,6 +812,10 @@ Aided by GitHub Copilot
 
 * initial release
 
+## Status
+
+[![CI](https://github.com/strobus/i-ching/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/strobus/i-ching/actions/workflows/ci.yml)
+
 # <a name="references"></a>References
 
 * [Wilhelm, R. & Baynes, C. (1967). The I ching; or, Book of changes. Princeton, N.J: Princeton University Press](https://www.amazon.com/Ching-Changes-Bollingen-Princeton-University/dp/069109750X) (amazon.com).
