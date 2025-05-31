@@ -814,7 +814,7 @@ Aided by GitHub Copilot
 
 ## Status
 
-[![CI](https://github.com/strobus/i-ching/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/strobus/i-ching/actions/workflows/ci.yml)
+[![CI](https://github.com/sam-rowe/i-ching/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/sam-rowe/i-ching/actions/workflows/ci.yml)
 
 # <a name="references"></a>References
 
